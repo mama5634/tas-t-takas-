@@ -149,36 +149,12 @@
         width: 100%;
       }
     }
-  
-@media (max-width: 480px) {
-  body {
-    padding: 1rem;
-  }
-  .container {
-    width: 100%;
-    padding: 1rem;
-  }
-  input, button {
-    font-size: 1rem;
-  }
-  .card {
-    padding: 1rem;
-  }
-  .ref-button {
-    width: 100%;
-    margin-top: 0.5rem;
-  }
-  h1 {
-    font-size: 1.25rem;
-  }
-}
-
-</style>
+  </style>
 </head>
 <body>
   <div class="container">
     <div class="logo">
-      <img src="logo.jpg" alt="Taşıt Takas Logo" />
+      <img src="unnamed.jpg" alt="Taşıt Takas Logo" />
     </div>
 
     <h1>TaşıtTakas Güvenli Ödeme Bilgileri</h1>
@@ -189,7 +165,7 @@
 
       
 <div class="label">Tarih:</div>
-<div class="value">28.07.2025</div>
+<div class="value">27.07.2025</div>
 
 <div class="label">Plaka:</div>
       <div class="value">35 CCY 531</div>
@@ -275,44 +251,85 @@
     90% { opacity: 1; }
     100% { opacity: 0; }
   }
-
-@media (max-width: 480px) {
-  body {
-    padding: 1rem;
-  }
-  .container {
-    width: 100%;
-    padding: 1rem;
-  }
-  input, button {
-    font-size: 1rem;
-  }
-  .card {
-    padding: 1rem;
-  }
-  .ref-button {
-    width: 100%;
-    margin-top: 0.5rem;
-  }
-  h1 {
-    font-size: 1.25rem;
-  }
-}
-
 </style>
 
 <div class="animated-warning">
   Belirtilen süre içinde bütün işlemlerinizi gerçekleştiriniz.
 </div>
 <script>
-  
+  setTimeout(() => {
+    document.querySelector('.animated-warning').style.display = "none";
+  }, 3000);
+</script>
+
+
+
+<style>
+  #countdown {
+    font-size: 1.4rem;
+    font-weight: bold;
+    background-color: #1d3765;
+    color: #ffffff;
+    border: 3px solid #facc15;
+    padding: 14px 20px;
+    border-radius: 16px;
+    text-align: center;
+    margin: 24px auto;
+    width: fit-content;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+  }
+
+  #countdown {
+    font-size: 1.2rem;
+    font-weight: bold;
+    background-color: #e0f2fe;
+    color: #1e3a8a;
+    border: 2px dashed #60a5fa;
+    padding: 12px;
+    border-radius: 12px;
+    text-align: center;
+    margin: 20px 0;
+    box-shadow: 0 0 8px rgba(30, 58, 138, 0.1);
+  }
+</style>
+<div id="countdown"
+ style="margin-top: 20px; font-weight: bold; color: #1d3765;"></div>
+<script>
+  let mainTime = 120; // 2 dakika
+  let extraTime = 60; // 1 dakika ek süre
+  let isExtraTime = false;
+  const countdown = document.getElementById("countdown");
+
+  function updateCountdownDisplay(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    countdown.innerText = "Kalan Süre: " + mins + " dakika " + (secs < 10 ? "0" : "") + secs + " saniye";
+  }
+
+  function startCountdown(seconds) {
+    updateCountdownDisplay(seconds);
+    const timer = setInterval(() => {
+      seconds--;
+      updateCountdownDisplay(seconds);
+
+      if (seconds <= 0) {
+        clearInterval(timer);
+        if (!isExtraTime) {
+          isExtraTime = true;
+          alert("Ek süre: 1 dakika verildi.");
+          startCountdown(extraTime);
+        } else {
+          countdown.innerText = "Süre doldu. Sayfa kapanıyor...";
+          setTimeout(() => {
+            window.close();
           }, 3000);
         }
       }
     }, 1000);
   }
 
-  
+  startCountdown(mainTime);
 </script>
 
 </body>
